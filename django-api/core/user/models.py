@@ -3,15 +3,9 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.http import Http404
+from abstract.models import AbrstractManager,AbrstractModel
 
-class UserManager(BaseUserManager):
-
-    def get_object_by_public_id(self,public_id):
-        try:
-            instance = self.get(public_id=public_id)
-            return instance
-        except (ObjectDoesNotExist, ValueError, TypeError):
-            raise Http404("User not found")
+class UserManager(BaseUserManager,AbrstractManager):
     
     def create_user(self,username,email, password=None, **kwargs):
         '''create and return a User with an email, phone number, username and password'''
@@ -53,16 +47,13 @@ class UserManager(BaseUserManager):
         return superuser
 
 # Create your models here.
-class User(AbstractBaseUser,PermissionsMixin):
-    public_id = models.UUIDField(db_index=True, unique=True, default=uuid.uuid4, editable=False)
+class User(AbrstractModel,AbstractBaseUser,PermissionsMixin):
     username = models.CharField(max_length=255, db_index=True, unique=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     email = models.EmailField(db_index=True, unique=True)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
     bio = models.CharField(max_length=500,null=True)
     avatar = models.ImageField(null=True)
 

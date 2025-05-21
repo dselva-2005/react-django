@@ -2,13 +2,13 @@ from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework import viewsets
 from core.user.serializers import UserSerializer
 from core.user.models import User
-from django.http import Http404
 from rest_framework import status
 from rest_framework.response import Response
+from abstract.viewsets import AbstractViewset
 
-class UserViewset(viewsets.ModelViewSet):
+class UserViewset(AbstractViewset):
     http_method_names = ('patch','get','delete')
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = UserSerializer
 
     def get_queryset(self):
