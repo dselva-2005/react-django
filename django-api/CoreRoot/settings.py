@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'core.user',
     'core.auth',
     'core.post',
+    'core.comment',
 
     # third party apps
     'rest_framework',

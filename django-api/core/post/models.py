@@ -2,7 +2,6 @@ from abstract.models import AbrstractManager,AbrstractModel
 from django.db import models
 
 class PostManager(AbrstractManager):
-    def create_post(self):
         pass
 
 class Post(AbrstractModel):
