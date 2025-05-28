@@ -15,7 +15,7 @@ function LoginForm() {
         const loginForm = event.currentTarget;
 
         if (loginForm.checkValidity() === false) {
-            event.stopPropogation();
+            return
         }
         setValidated(true);
         const data = {
